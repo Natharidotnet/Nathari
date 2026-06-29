@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NazariPro - Pass your Nazari first try</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+  <style>
+    /* ── TIMER CARD ── */
+    .timer-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      min-width: 300px;
+      flex-shrink: 0;
+    }
+    .timer-label {
+      color: rgba(255,255,255,0.45);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .timer-display {
+      font-family: 'Tajawal', sans-serif;
+      font-size: 58px;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 6px;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -2px;
+    }
+    .timer-display.urgent { color: #e24b4a; }
+    .timer-sub {
+      color: rgba(255,255,255,0.35);
+      font-size: 12px;
+      margin-bottom: 20px;
+    }
+    .mock-q {
+      background: rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+    .mock-q-text {
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 13px;
+      line-height: 1.55;
+    }
+    .mock-opts { display: flex; flex-direction: column; gap: 7px; }
+    .mock-opt {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 12px;
+      border-radius: 7px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      border: 1px solid rgba(255,255,255,0.09);
+    }
+    .mock-opt.correct {
+      background: rgba(0,122,61,0.2);
+      border-color: rgba(0,122,61,0.45);
+      color: #5ce89a;
+    }
+    .mock-opt.wrong {
+      background: rgba(226,75,74,0.12);
+      border-color: rgba(226,75,74,0.3);
+      color: #f09595;
+    }
+    .opt-letter {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1.5px solid currentColor;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .progress-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .progress-bar-bg {
+      flex: 1;
+      height: 3px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+    }
+    .progress-bar {
+      height: 3px;
+      background: var(--gold);
+      border-radius: 2px;
+      transition: width 0.4s;
+    }
+    .progress-text {
+      font-size: 11px;
+      color: rgba(255,255,255,0.35);
+      white-space: nowrap;
+    }
+
+    /* ── FEATURES ── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+    .feat-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--navy);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .feat-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 7px;
+    }
+    .feat-desc { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
+
+    /* ── CATEGORIES ── */
+    .cats-bg { background: var(--navy); padding: 72px 2.5rem; }
+    .cats-inner { max-width: 1180px; margin: 0 auto; }
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      gap: 14px;
+    }
+    .cat-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: var(--radius-md);
+      padding: 20px 16px;
+      cursor: pointer;
+      transition: background 0.18s, border-color 0.18s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-card:hover {
+      background: rgba(201,168,76,0.09);
+      border-color: rgba(201,168,76,0.35);
+    }
+    .cat-icon-wrap {
+      width: 36px;
+      height: 36px;
+      background: rgba(201,168,76,0.12);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .cat-name { color: var(--white); font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+    .cat-count { color: rgba(255,255,255,0.38); font-size: 11px; margin-bottom: 10px; }
+    .cat-bar-bg { height: 2px; background: rgba(255,255,255,0.08); border-radius: 1px; }
+    .cat-bar { height: 2px; background: var(--gold); border-radius: 1px; }
+
+    /* ── HOW IT WORKS ── */
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0;
+      position: relative;
+    }
+    .how-step {
+      padding: 32px 24px;
+      position: relative;
+    }
+    .how-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 52px;
+      right: -1px;
+      width: 1px;
+      height: 40px;
+      background: var(--border);
+    }
+    .how-num {
+      font-family: 'Tajawal', sans-serif;
+      font-size: 42px;
+      font-weight: 800;
+      color: rgba(201,168,76,0.15);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .how-icon {
+      font-size: 24px;
+      color: var(--navy);
+      margin-bottom: 14px;
+    }
+    .how-title { font-size: 15px; font-weight: 700; color: var(--text-main); margin-bottom: 8px; }
+    .how-desc { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
+
+    /* ── TESTIMONIALS ── */
+    .testi-bg { background: var(--navy); padding: 72px 2.5rem; }
+    .testi-inner { max-width: 1180px; margin: 0 auto; }
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-top: 44px;
+    }
+    .testi-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius-md);
+      padding: 24px;
+    }
+    .testi-stars { color: var(--gold); font-size: 13px; letter-spacing: 3px; margin-bottom: 14px; }
+    .testi-text {
+      color: rgba(255,255,255,0.75);
+      font-size: 14px;
+      line-height: 1.75;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    .testi-author { display: flex; align-items: center; gap: 10px; }
+    .testi-av {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+    .testi-name { font-size: 13px; font-weight: 600; color: var(--white); }
+    .testi-loc { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+
+    /* ── CTA SECTION ── */
+    .cta-bg {
+      background: var(--navy);
+      padding: 88px 2.5rem;
+      text-align: center;
+    }
+    .cta-h2 {
+      font-family: 'Tajawal', sans-serif;
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.5px;
+      margin-bottom: 14px;
+    }
+    .cta-h2 .gold { color: var(--gold); }
+    .cta-sub { color: rgba(255,255,255,0.48); font-size: 16px; margin-bottom: 38px; }
+    .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+  <div id="nav-slot"></div>
+
+  <!-- HERO -->
+  <section class="hero-dark" aria-label="Hero">
+    <div class="hero-dark-inner">
+      <div>
+        <div class="hero-badge">
+          <i class="ti ti-shield-check" aria-hidden="true"></i>
+          <span data-t-static="hero_badge">Jordan Traffic Directorate aligned</span>
+        </div>
+        <h1 class="hero-h1">Pass your<br><span class="gold">Nazari test</span><br>first try.</h1>
+        <p class="hero-sub">Jordan's most complete theory driving test prep. Real questions, real categories, real confidence.</p>
+        <div class="hero-btns">
+          <button class="btn-primary-lg" onclick="location.href='bank.html'">
+            <i class="ti ti-player-play" aria-hidden="true"></i> Try 10 free questions
+          </button>
+          <button class="btn-outline-white" onclick="location.href='pricing.html'">
+            See all plans
+          </button>
+        </div>
+      </div>
+
+      <!-- LIVE TIMER MOCK -->
+      <div class="timer-card" aria-label="Simulated exam preview">
+        <div class="timer-label"><i class="ti ti-clock-hour-4" aria-hidden="true"></i> Simulated exam</div>
+        <div class="timer-display" id="timerDisp">29:41</div>
+        <div class="timer-sub">Question 1 of 30</div>
+        <div class="mock-q">
+          <div class="mock-q-text">What does a flashing yellow traffic light mean?</div>
+          <div class="mock-opts">
+            <div class="mock-opt wrong">
+              <span class="opt-letter">A</span> Stop and wait for green
+            </div>
+            <div class="mock-opt correct">
+              <span class="opt-letter">B</span> Proceed with caution
+            </div>
+            <div class="mock-opt">
+              <span class="opt-letter">C</span> Speed up to clear the intersection
+            </div>
+          </div>
+        </div>
+        <div class="progress-row">
+          <div class="progress-bar-bg"><div class="progress-bar" style="width:33%"></div></div>
+          <span class="progress-text">10 / 30</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="stats-inner">
+      <div class="stat"><div class="stat-num">850+</div><div class="stat-label">Questions in bank</div></div>
+      <div class="stat"><div class="stat-num">12</div><div class="stat-label">Test categories</div></div>
+      <div class="stat"><div class="stat-num">94%</div><div class="stat-label">Premium pass rate</div></div>
+      <div class="stat"><div class="stat-num">8,200+</div><div class="stat-label">Students prepared</div></div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section style="background:var(--off-white)">
+    <div class="section" id="how">
+      <span class="section-tag">What you get</span>
+      <h2 class="section-h2">Everything you need to pass</h2>
+      <p class="section-sub">Built around how the actual Nazari works, not just what looks good on a website.</p>
+      <div class="features-grid">
+        <div class="card">
+          <div class="feat-icon"><i class="ti ti-database" aria-hidden="true"></i></div>
+          <div class="feat-title">Full question bank</div>
+          <div class="feat-desc">850+ real Nazari questions organized by category with correct answers and explanations.</div>
+        </div>
+        <div class="card">
+          <div class="feat-icon"><i class="ti ti-clipboard-check" aria-hidden="true"></i></div>
+          <div class="feat-title">Timed mock exams</div>
+          <div class="feat-desc">30-question timed simulations that mirror the format and pressure of the real test.</div>
+        </div>
+        <div class="card">
+          <div class="feat-icon"><i class="ti ti-chart-line" aria-hidden="true"></i></div>
+          <div class="feat-title">Progress tracking</div>
+          <div class="feat-desc">Score history, weak category detection, and a clear view of how ready you are.</div>
+        </div>
+        <div class="card">
+          <div class="feat-icon"><i class="ti ti-road-sign" aria-hidden="true"></i></div>
+          <div class="feat-title">Road signs glossary</div>
+          <div class="feat-desc">Every sign you'll see on the test, with visual references and plain-Arabic explanations.</div>
+        </div>
+        <div class="card">
+          <div class="feat-icon"><i class="ti ti-repeat" aria-hidden="true"></i></div>
+          <div class="feat-title">Mistake review</div>
+          <div class="feat-desc">Automatically revisit the questions you got wrong. Repeat until you get them right.</div>
+        </div>
+        <div class="card">
+          <div class="feat-icon"><i class="ti ti-device-mobile" aria-hidden="true"></i></div>
+          <div class="feat-title">Mobile first</div>
+          <div class="feat-desc">Study on your phone, in Arabic or English, anywhere, anytime, with no app download needed.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <div class="cats-bg">
+    <div class="cats-inner">
+      <span class="section-tag gold">Practice by topic</span>
+      <h2 class="section-h2 white">All 12 Nazari categories</h2>
+      <p class="section-sub white">Train the areas where you are weakest before sitting the full exam.</p>
+      <div class="cat-grid">
+        <a class="cat-card" href="bank.html?cat=signals">
+          <div class="cat-icon-wrap"><i class="ti ti-traffic-lights" aria-hidden="true"></i></div>
+          <div class="cat-name">Traffic signals</div>
+          <div class="cat-count">98 questions</div>
+          <div class="cat-bar-bg"><div class="cat-bar" style="width:85%"></div></div>
+        </a>
+        <a class="cat-card" href="bank.html?cat=signs">
+          <div class="cat-icon-wrap"><i class="ti ti-road-sign" aria-hidden="true"></i></div>
+          <div class="cat-name">Road signs</div>
+          <div class="cat-count">120 questions</div>
+          <div class="cat-bar-bg"><div class="cat-bar" style="width:95%"></div></div>
+        </a>
+        <a class="cat-card" href="bank.html?cat=laws">
+          <div class="cat-icon-wrap"><i class="ti ti-gavel" aria-hidden="true"></i></div>
+          <div class="cat-name">Traffic laws</div>
+          <div class="cat-count">85 questions</div>
+          <div class="cat-bar-bg"><div class="cat-bar" style="width:70%"></div></div>
+        </a>
+        <a class="cat-card" href="bank.html?cat=fines">
+          <div class="cat-icon-wrap"><i class="ti ti-receipt-tax" aria-hidden="true"></i></div>
+          <div class="cat-name">Fines and penalties</div>
+          <div class="cat-count">62 questions</div>
+          <div class="cat-bar-bg"><div class="cat-bar" style="width:55%"></div></div>
+        </a>
+        <a class="cat-card" href="bank.html?cat=priority">
+          <div class="cat-icon-wrap"><i class="ti ti-arrows-exchange" aria-hidden="true"></i></div>
+          <div class="cat-name">Right of way</div>
+          <div class="cat-count">74 questions</div>
+          <div class="cat-bar-bg"><div class="cat-bar" style="width:65%"></div></div>
+        </a>
+        <a class="cat-card" href="bank.html?cat=highway">
+          <div class="cat-icon-wrap"><i class="ti ti-road" aria-hidden="true"></i></div>
+          <div class="cat-name">Highway driving</div>
+          <div class="cat-count">55 questions</div>
+          <div class="cat-bar-bg"><div class="cat-bar" style="width:48%"></div></div>
+        </a>
+        <a class="cat-card" href="bank.html?cat=emergency">
+          <div class="cat-icon-wrap"><i class="ti ti-ambulance" aria-hidden="true"></i></div>
+          <div class="cat-name">Emergency situations</div>
+          <div class="cat-count">48 questions</div>
+          <div class="cat-bar-bg"><div class="cat-bar" style="width:42%"></div></div>
+        </a>
+        <a class="cat-card" href="bank.html?cat=night">
+          <div class="cat-icon-wrap"><i class="ti ti-moon" aria-hidden="true"></i></div>
+          <div class="cat-name">Night driving</div>
+          <div class="cat-count">40 questions</div>
+          <div class="cat-bar-bg"><div class="cat-bar" style="width:35%"></div></div>
+        </a>
+        <a class="cat-card" href="bank.html?cat=parking">
+          <div class="cat-icon-wrap"><i class="ti ti-parking" aria-hidden="true"></i></div>
+          <div class="cat-name">Parking rules</div>
+          <div class="cat-count">51 questions</div>
+          <div class="cat-bar-bg"><div class="cat-bar" style="width:45%"></div></div>
+        </a>
+        <a class="cat-card" href="bank.html?cat=maintenance">
+          <div class="cat-icon-wrap"><i class="ti ti-tool" aria-hidden="true"></i></div>
+          <div class="cat-name">Vehicle maintenance</div>
+          <div class="cat-count">44 questions</div>
+          <div class="cat-bar-bg"><div class="cat-bar" style="width:38%"></div></div>
+        </a>
+        <a class="cat-card" href="bank.html?cat=school">
+          <div class="cat-icon-wrap"><i class="ti ti-school" aria-hidden="true"></i></div>
+          <div class="cat-name">School zones</div>
+          <div class="cat-count">36 questions</div>
+          <div class="cat-bar-bg"><div class="cat-bar" style="width:30%"></div></div>
+        </a>
+        <a class="cat-card" href="bank.html?cat=weather">
+          <div class="cat-icon-wrap"><i class="ti ti-cloud-rain" aria-hidden="true"></i></div>
+          <div class="cat-name">Weather conditions</div>
+          <div class="cat-count">37 questions</div>
+          <div class="cat-bar-bg"><div class="cat-bar" style="width:32%"></div></div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section style="background:var(--off-white)">
+    <div class="section">
+      <span class="section-tag">Process</span>
+      <h2 class="section-h2">How it works</h2>
+      <p class="section-sub">From sign-up to passing, four clear steps.</p>
+      <div class="how-grid" style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden">
+        <div class="how-step">
+          <div class="how-num">01</div>
+          <div class="how-icon"><i class="ti ti-user-plus" aria-hidden="true"></i></div>
+          <div class="how-title">Create your account</div>
+          <div class="how-desc">Free sign-up in under a minute. No payment needed to get started.</div>
+        </div>
+        <div class="how-step">
+          <div class="how-num">02</div>
+          <div class="how-icon"><i class="ti ti-adjustments" aria-hidden="true"></i></div>
+          <div class="how-title">Choose a category</div>
+          <div class="how-desc">Pick any of the 12 test categories or jump straight into a full mock exam.</div>
+        </div>
+        <div class="how-step">
+          <div class="how-num">03</div>
+          <div class="how-icon"><i class="ti ti-target" aria-hidden="true"></i></div>
+          <div class="how-title">Practice until ready</div>
+          <div class="how-desc">Track your weak spots and let the mistake reviewer focus your attention where it matters.</div>
+        </div>
+        <div class="how-step">
+          <div class="how-num">04</div>
+          <div class="how-icon"><i class="ti ti-certificate" aria-hidden="true"></i></div>
+          <div class="how-title">Pass first try</div>
+          <div class="how-desc">94% of Premium users pass on their first attempt. Show up confident.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <div class="testi-bg">
+    <div class="testi-inner">
+      <span class="section-tag gold">Results</span>
+      <h2 class="section-h2 white">People who passed first try</h2>
+      <div class="testi-grid">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"I failed the Nazari twice before. After two weeks on this site I passed with 28 out of 30. The mock exams are exactly like the real thing."</p>
+          <div class="testi-author">
+            <div class="testi-av" style="background:var(--gold)">MH</div>
+            <div>
+              <div class="testi-name">Mohammad H.</div>
+              <div class="testi-loc">Amman, passed April 2024</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Khalid's session was worth every penny. He told me exactly what the examiner looks for and I passed on my first attempt."</p>
+          <div class="testi-author">
+            <div class="testi-av" style="background:var(--green)">LT</div>
+            <div>
+              <div class="testi-name">Lara T.</div>
+              <div class="testi-loc">Zarqa, passed March 2024</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"The fines and penalties category saved me. I had no idea how strict the rules were. This site actually explains why, not just what."</p>
+          <div class="testi-author">
+            <div class="testi-av" style="background:var(--text-muted)">AK</div>
+            <div>
+              <div class="testi-name">Ahmad K.</div>
+              <div class="testi-loc">Irbid, passed May 2024</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-bg">
+    <h2 class="cta-h2">Ready to pass your <span class="gold">Nazari?</span></h2>
+    <p class="cta-sub">Start with 10 free questions. No account needed.</p>
+    <div class="cta-btns">
+      <button class="btn-primary-lg" onclick="location.href='bank.html'">Start for free</button>
+      <button class="btn-outline-white" onclick="location.href='pricing.html'">See pricing</button>
+    </div>
+  </div>
+
+  <div id="footer-slot"></div>
+
+  <script src="js/main.js"></script>
+  <script>
+    initPage('');
+
+    // Timer
+    let secs = 29 * 60 + 41;
+    const disp = document.getElementById('timerDisp');
+    setInterval(() => {
+      if (secs <= 0) return;
+      secs--;
+      const m = Math.floor(secs / 60);
+      const s = secs % 60;
+      disp.textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+      if (secs < 300) disp.classList.add('urgent');
+    }, 1000);
+  </script>
+</body>
+</html>

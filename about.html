@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - NazariPro</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+  <style>
+    .about-hero { background: var(--navy); padding: 72px 2.5rem; }
+    .about-hero-inner { max-width: 1180px; margin: 0 auto; display: flex; gap: 4rem; align-items: center; }
+    .page-h1 { font-family: 'Tajawal', sans-serif; font-size: 44px; font-weight: 800; color: var(--white); letter-spacing: -0.5px; margin-bottom: 16px; line-height: 1.1; }
+    .page-h1 .gold { color: var(--gold); }
+    .page-sub { color: rgba(255,255,255,0.55); font-size: 16px; line-height: 1.8; max-width: 480px; }
+
+    .about-visual {
+      flex-shrink: 0;
+      min-width: 280px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .about-stat-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: var(--radius-md);
+      padding: 20px 22px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .asc-icon { font-size: 24px; color: var(--gold); }
+    .asc-num { font-family: 'Tajawal', sans-serif; font-size: 26px; font-weight: 800; color: var(--white); line-height: 1; }
+    .asc-label { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 3px; }
+
+    /* STORY */
+    .story-section { background: var(--off-white); padding: 72px 2.5rem; }
+    .story-inner { max-width: 800px; margin: 0 auto; }
+    .story-body { font-size: 16px; color: var(--text-muted); line-height: 1.85; }
+    .story-body p { margin-bottom: 20px; }
+    .story-body strong { color: var(--text-main); }
+    .story-pullquote {
+      border-left: 3px solid var(--gold);
+      padding: 4px 0 4px 24px;
+      margin: 32px 0;
+      font-size: 18px;
+      font-style: italic;
+      color: var(--text-main);
+      line-height: 1.65;
+    }
+
+    /* VALUES */
+    .values-section { background: var(--white); padding: 72px 2.5rem; }
+    .values-inner { max-width: 1180px; margin: 0 auto; }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 44px;
+    }
+    .value-card { padding: 28px 24px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--white); }
+    .value-icon { font-size: 26px; color: var(--navy); margin-bottom: 14px; }
+    .value-title { font-size: 15px; font-weight: 700; color: var(--text-main); margin-bottom: 8px; }
+    .value-desc { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+
+    /* TEAM */
+    .team-section { background: var(--off-white); padding: 72px 2.5rem; }
+    .team-inner { max-width: 1180px; margin: 0 auto; }
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 44px; }
+    .team-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; text-align: center; }
+    .team-av {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--white);
+      margin: 0 auto 14px;
+    }
+    .team-name { font-size: 15px; font-weight: 700; color: var(--text-main); margin-bottom: 4px; }
+    .team-role { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
+    .team-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--green);
+      background: rgba(0,122,61,0.08);
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+
+    /* CONTACT CTA */
+    .contact-cta { background: var(--navy); padding: 72px 2.5rem; text-align: center; }
+    .contact-cta h2 { font-family: 'Tajawal', sans-serif; font-size: 36px; font-weight: 800; color: var(--white); margin-bottom: 12px; letter-spacing: -0.3px; }
+    .contact-cta p { color: rgba(255,255,255,0.48); font-size: 15px; margin-bottom: 32px; }
+    .contact-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+  <div id="nav-slot"></div>
+
+  <div class="about-hero">
+    <div class="about-hero-inner">
+      <div>
+        <span class="section-tag gold">About NazariPro</span>
+        <h1 class="page-h1">Built because we <span class="gold">failed</span> the test first.</h1>
+        <p class="page-sub">NazariPro started from a real frustration. Too many people in Jordan fail the Nazari theory test not because they are bad drivers, but because there was nowhere decent to prepare. We decided to build that place.</p>
+      </div>
+      <div class="about-visual">
+        <div class="about-stat-card">
+          <i class="ti ti-users asc-icon" aria-hidden="true"></i>
+          <div>
+            <div class="asc-num">8,200+</div>
+            <div class="asc-label">Students prepared since launch</div>
+          </div>
+        </div>
+        <div class="about-stat-card">
+          <i class="ti ti-certificate asc-icon" aria-hidden="true"></i>
+          <div>
+            <div class="asc-num">94%</div>
+            <div class="asc-label">Premium user pass rate</div>
+          </div>
+        </div>
+        <div class="about-stat-card">
+          <i class="ti ti-map-pin asc-icon" aria-hidden="true"></i>
+          <div>
+            <div class="asc-num">Amman</div>
+            <div class="asc-label">Made in Jordan, for Jordan</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STORY -->
+  <div class="story-section">
+    <div class="story-inner">
+      <span class="section-tag">Our story</span>
+      <h2 class="section-h2" style="margin-bottom:32px">Why we built this</h2>
+      <div class="story-body">
+        <p>When our founder went to take the Nazari test in 2022, he failed on his first attempt. Not because he did not know how to drive. Because the test covers very specific Jordanian traffic law details, fines, and sign variations that you simply cannot guess your way through.</p>
+        <p>He searched for a preparation site. What he found were <strong>scattered PDF files, outdated question lists on forums, and apps that had not been updated in years.</strong> Nothing that felt like it was actually built to help someone pass.</p>
+
+        <div class="story-pullquote">
+          "The test is not hard. Preparing for it was the hard part. We fixed that."
+        </div>
+
+        <p>NazariPro launched in early 2024 with 200 crowdsourced questions and a basic mock exam. Within three months, students were sharing it on WhatsApp groups dedicated to driving license prep. The question bank grew to 850+ through submissions from students who used the site, passed, and came back to add the questions they remembered.</p>
+        <p>Today we are building toward a partnership with Jordan's driving schools and eventually toward an officially endorsed platform. The goal is not just a useful website. It is making Jordan's roads safer by making sure every driver actually understands the rules.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- VALUES -->
+  <div class="values-section">
+    <div class="values-inner">
+      <span class="section-tag">What we stand for</span>
+      <h2 class="section-h2">Our values</h2>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon"><i class="ti ti-eye" aria-hidden="true"></i></div>
+          <div class="value-title">Honest about what we know</div>
+          <div class="value-desc">We are not the official government test. Our question bank is community-built. We say that clearly everywhere it matters.</div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon"><i class="ti ti-building-community" aria-hidden="true"></i></div>
+          <div class="value-title">Built for Jordan specifically</div>
+          <div class="value-desc">The Nazari test is different from generic traffic tests. We cover Jordanian law, Jordanian signs, Jordanian fines, and nothing else.</div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon"><i class="ti ti-language" aria-hidden="true"></i></div>
+          <div class="value-title">Arabic first</div>
+          <div class="value-desc">The real test is in Arabic. Our platform is Arabic-native. English is available because students asked for it, not because we defaulted to it.</div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon"><i class="ti ti-shield-check" aria-hidden="true"></i></div>
+          <div class="value-title">Safety over revenue</div>
+          <div class="value-desc">We do not water down explanations to get more question volume. Every answer has a reason, because understanding why is what keeps people safe.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEAM -->
+  <div class="team-section">
+    <div class="team-inner">
+      <span class="section-tag">The team</span>
+      <h2 class="section-h2">Who's behind NazariPro</h2>
+      <p class="section-sub">A small team from Amman, Jordan.</p>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-av" style="background:var(--navy)">AN</div>
+          <div class="team-name">Ali Nasser</div>
+          <div class="team-role">Founder and product</div>
+          <span class="team-tag"><i class="ti ti-map-pin" aria-hidden="true"></i> Amman</span>
+        </div>
+        <div class="team-card">
+          <div class="team-av" style="background:var(--green)">MQ</div>
+          <div class="team-name">Maya Qasim</div>
+          <div class="team-role">Content and question bank</div>
+          <span class="team-tag"><i class="ti ti-map-pin" aria-hidden="true"></i> Irbid</span>
+        </div>
+        <div class="team-card">
+          <div class="team-av" style="background:var(--gold)">KS</div>
+          <div class="team-name">Karim Saleh</div>
+          <div class="team-role">Engineering</div>
+          <span class="team-tag"><i class="ti ti-map-pin" aria-hidden="true"></i> Amman</span>
+        </div>
+        <div class="team-card">
+          <div class="team-av" style="background:#5a6a7e">TA</div>
+          <div class="team-name">Tutor advisors</div>
+          <div class="team-role">12 verified instructors</div>
+          <span class="team-tag"><i class="ti ti-shield-check" aria-hidden="true"></i> Verified</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="contact-cta">
+    <h2>Get in touch</h2>
+    <p>Questions, partnerships, institutional pricing, or just want to say you passed? We want to hear from you.</p>
+    <div class="contact-btns">
+      <button class="btn-primary-lg" onclick="location.href='contact.html'">
+        <i class="ti ti-mail" aria-hidden="true"></i> Contact us
+      </button>
+      <button class="btn-outline-white" onclick="location.href='pricing.html?type=institution'">
+        <i class="ti ti-building" aria-hidden="true"></i> Institutional pricing
+      </button>
+    </div>
+  </div>
+
+  <div id="footer-slot"></div>
+  <script src="js/main.js"></script>
+  <script>initPage('about');</script>
+</body>
+</html>
